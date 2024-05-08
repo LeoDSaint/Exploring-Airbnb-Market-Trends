@@ -44,6 +44,8 @@ This is a TSV file containing data on Airbnb host names and review dates.
 2. Data manipulation
 3. Report insights to a real estate start-up!
 
+
+
 ## Data Cleaning
 
 ```python
@@ -53,4 +55,18 @@ import numpy as np
 import re
 # importing data/airbnb_price.csv
 airbnb_price= pd.read_csv(r'C:/Users/USER\Downloads/airbnb_price.csv')
+```
+#### airbnb price dataframe head
+![](datainspection2.png)
+
+After inspecting the airbnb_price table and seeing that it consists of 3 columns:
+1. listing_id 
+2. price
+3. nbhood_full
+We need to make sure that the columns  are in the correct format and cleaned
+### Checking for NaN and Duplicated Values
+!()[Checking_airbnb_price_for_missing_and_duplicated_values.png]
+
+
+
 
