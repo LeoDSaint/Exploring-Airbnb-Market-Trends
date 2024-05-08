@@ -65,42 +65,52 @@ After inspecting the airbnb_price table and seeing that it consists of 3 columns
 3. nbhood_full
 We need to make sure that the columns  are in the correct format and cleaned
 ### Checking for NaN and Duplicated Values
-!()[Checking_airbnb_price_for_missing_and_duplicated_values.png]
+
+![](Checking_airbnb_price_for_missing_and_duplicated_values.png)
+
 ###
 ```python
+
 # Convert 'listing_id' column to text
-df1['listing_id'] = df1['listing_id'].astype(str)
+airbnb_price['listing_id'] = airbnb_price['listing_id'].astype(str)
+
+
+
 #splitting the nbhooh_full column into borough and neighborhood 
 
 # Define a regex pattern to capture borough and neighborhood
 regex_pattern = r'(?P<Borough>\w+),\s(?P<Neighborhood>.*)'
 # Extract borough and neighborhood into new columns using regex
-df_extracted = df1['nbhood_full'].str.extract(regex_pattern)
+df_extracted = airbnb_price['nbhood_full'].str.extract(regex_pattern)
 
 # Assign the extracted columns back to the oriinal DataFrame
-df1[['borough', 'nbhood']] = df_extracted
+airbnb_price[['borough', 'nbhood']] = df_extracted
 
 #Remove Trailing Whitespaces
-df1['nbhood'] = df1['nbhood'].str.strip()
-df1['borough'] = df1['borough'].str.strip()
-df1['nbhood_full'] = df1['nbhood_full'].str.strip()
+airbnb_price['nbhood'] = airbnb_price['nbhood'].str.strip()
+airbnb_price['borough'] = airbnb_price['borough'].str.strip()
+airbnb_price['nbhood_full'] = airbnb_price['nbhood_full'].str.strip()
 
 # Remove non-numeric characters from the "price" column
-df1['price'] = df1['price'].apply(lambda x: re.sub(r'\D', '', x))
+airbnb_price['price'] = airbnb_price['price'].apply(lambda x: re.sub(r'\D', '', x))
 
 # Convert 'price' column to integer (assuming 'price' values are whole numbers)
-df1['price'] = df1['price'].astype(float)
-# Display the updated data types
+airbnb_price['price'] = airbnb_price['price'].astype(float)
+
+
+
+print(airbnb_price['nbhood'].unique())
+# Print updated data types
 print(airbnb_price.head())
 
 ```
-![](cleaned_airbnb_dataframe)
+![](cleaned_airbnbprice_dataframe.png)
 
 
-Now moving on to the airbnb room type
+Now moving on to the airbnb_room_type Dataframe
 
 #### airbnb room_type dataframe head
-![](airbnb_room_type_inspection)
+![](airbnb_room_type_dataframe_inspection.png)
 After inspecting the airbnb_room_type table and seeing that it consists of 3 columns:
 1. listing_id
 2. description
@@ -109,11 +119,11 @@ We need to make sure that the columns  are in the correct format and cleaned
 
 ### Checking for NaN and Duplicated Values
 
-![Checking_airbnb__room_type_for_missing_and_duplicated_values.png](Checking_airbnb__room_type_for_missing_and_duplicated_values.png)
+![](airbnb_room_type_NaN_duplicate.png)
 
 Upon inspection, it was observed that the **description** column contains **10** missing values. To gain further insights into the nature of this missingness, a closer examination was conducted.
 
-![missingness](missingness.png)
+![missingness](decription_column_missingness.png)
 
 It was found that the missing values in the **description** column are exclusively associated with listings categorized as "Private Room" in the **room_type** column. This suggests that certain clients opt not to provide additional information when renting out private rooms, possibly indicating a preference for privacy and discretion in such arrangements.
 
@@ -129,8 +139,8 @@ airbnb_room_type['listing_id'] = airbnb_room_type['listing_id'].astype(str)
 ```python
 print(airbnb_room_type['room_type'].unique())
 ```
-### converting it to categorical column and capitlzing everything to ensure consistency 
-*It seems like there are inconsistencies in the values of the "room_type" column, with variations in capitalization. To address this, I Captilized everything to ensure consistency.*
+ *It seems like there are inconsistencies in the values of the "room_type" column, with variations in capitalization. To address this, I Captilized everything to ensure consistency.*
+### converting it to categorical column and capitlzing everything to ensure consistency
 ```python
 # Inspecting the room_type column
 print(airbnb_room_type['room_type'].unique())
@@ -146,4 +156,6 @@ print(airbnb_room_type['room_type'].unique())
 #Displaying clean airbnb_room_type dataframe
 print(airbnb_room_type.head())
 ```
-![](cleaned)
+### Displaying The clean airbnb_room_type DataFrame
+![Displaying The clean airbnb_room_type DataFrame](cleaned_df_airbnb_room_type.png)
+
