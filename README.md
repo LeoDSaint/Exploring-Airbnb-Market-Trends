@@ -159,3 +159,83 @@ print(airbnb_room_type.head())
 ### Displaying The clean airbnb_room_type DataFrame
 ![Displaying The clean airbnb_room_type DataFrame](cleaned_df_airbnb_room_type.png)
 
+
+
+Now moving on to the **_airbnb_review_** table
+## Inspecting The Table
+```python
+#creating airbnb_review table
+airbnb_review=pd.read_csv(r'C:/Users/USER/Downloads/airbnb_last_review.tsv',sep='\t')
+#inspecting table
+print(airbnb_review.head())
+print(airbnb_review.dtypes)
+print(airbnb_review.info())
+```
+![](df_head)
+
+### checking for null and duplicated values 
+```python
+print(airbnb_review.isnull().sum())
+
+print(airbnb_review.duplicated().sum())
+```
+![](null_values)
+
+**_It appears that the "host_name" column has 8 missing values.I am going to replace them with "not specified"_**
+```python
+# Replace missing values in the "host_name" column with "not specified"
+airbnb_review['host_name'].fillna("not specified", inplace=True)
+```
+
+### dealing with other columns 
+
+``` python
+
+# Convert the 'last_review' column to datetime format, handling errors by setting invalid values to NaT
+airbnb_review['last_review']= pd.to_datetime(airbnb_review['last_review'],infer_datetime_format=True,errors='coerce')
+
+# Convert the 'last_review' column to string format with date in DD-MM-YYYY
+airbnb_review['last_review']=airbnb_review['last_review'].dt.strftime("%d-%m-%Y")
+
+#
+# Convert the listing_id to text
+airbnb_review['listing_id'] = airbnb_review['listing_id'].astype(str)
+
+# Capitalize the room_type column
+airbnb_review['host_name']=airbnb_review['host_name'].str.capitalize()
+
+print(airbnb_review['host_name'].unique())
+
+```
+
+
+# Now Answering the questions
+
+```python
+###What are the dates of the earliest and most recent reviews? Store these values as two separate variables with your preferred names
+# Calculate the most recent and earliest review dates
+max_date = airbnb_review['last_review'].max()
+min_date = airbnb_review['last_review'].min()
+print(max_date , min_date)
+
+
+##How many of the listings are private rooms? Save this into any variable.
+
+count_private_room = airbnb_room_type[airbnb_room_type['room_type'] == 'Private room'].shape[0]
+print(count_private_room)
+
+##What is the average listing price? Round to the nearest two decimal places and save into a variable.
+
+print(airbnb_price.head())
+average_listing_price= round(airbnb_price['price'].mean(),2)
+
+print(average_listing_price)
+
+
+## Combine the new variables into one DataFrame called review_dates with four columns in the following order: first_reviewed, last_reviewed, nb_private_rooms, and avg_price. The DataFrame should only contain one row of values.
+
+# Create DataFrame
+review_dates = pd.DataFrame({'first_reviewed': [min_date] , 'last_reviewed': [max_date], 'nb_private_rooms' : [count_private_room] ,'avg_price': [average_listing_price]})
+
+print(review_dates)
+```
