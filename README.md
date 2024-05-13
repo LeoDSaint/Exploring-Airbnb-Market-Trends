@@ -234,8 +234,14 @@ print(average_listing_price)
 
 ## Combine the new variables into one DataFrame called review_dates with four columns in the following order: first_reviewed, last_reviewed, nb_private_rooms, and avg_price. The DataFrame should only contain one row of values.
 
-# Create DataFrame
+# Create DataFrame 
 review_dates = pd.DataFrame({'first_reviewed': [min_date] , 'last_reviewed': [max_date], 'nb_private_rooms' : [count_private_room] ,'avg_price': [average_listing_price]})
 
 print(review_dates)
 ```
+# Insights
+1. The dataset spans a period of approximately one and a half years, from the beginning of 2019 to mid-2019. This indicates that the dataset provides a snapshot of Airbnb activity during this time frame.
+2. The insight from the result print(count_private_room) is the total number of listings categorized as "Private room" in the dataset, which is 11,356.
+3. The insight from the result print(average_listing_price) is the average listing price of Airbnb properties in the dataset, which is approximately $141.78.
+   
+
